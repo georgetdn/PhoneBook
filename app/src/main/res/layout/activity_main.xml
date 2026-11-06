@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Main Phone Book screen.
+    MainActivity loads this file with setContentView(R.layout.activity_main).
+    This XML defines the views; Kotlin code handles sending requests and replies.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!--
+        Conversation scrolling container.
+        A height of 0dp with weight 1 gives it the space left above the input row.
+        fillViewport makes its child at least as tall as the visible area.
+        A ScrollView supports exactly one direct child: conversationArea below.
+    -->
+    <ScrollView
+        android:id="@+id/conversationScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <!--
+            Message container, initially empty.
+            MainActivity can append TextViews for user messages and app replies.
+            Vertical orientation places each message below the previous one.
+            After adding a message, Kotlin code can scroll conversationScroll
+            to the bottom so the latest response is visible.
+        -->
+        <LinearLayout
+            android:id="@+id/conversationArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp" />
+    </ScrollView>
+
+    <!--
+        Request composer.
+        This row stays below the conversation because it is outside the ScrollView.
+        Bottom gravity aligns the button with the bottom of a growing input field.
+        Start-based spacing also supports right-to-left interface layouts.
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <!--
+            Request text field.
+            Width 0dp and weight 1 let it take the width remaining beside Send.
+            Multiline input supports longer requests, showing up to four lines
+            before the text scrolls within the field. The hint comes from strings.xml
+            for translation. A 48dp minimum height provides a usable touch target.
+            Kotlin reads its text and clears it after accepting a request.
+        -->
+        <EditText
+            android:id="@+id/requestInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top|start"
+            android:hint="@string/request_hint"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="4"
+            android:minHeight="48dp" />
+
+        <!--
+            Send action.
+            The visible text also supplies the button's accessibility label.
+            MainActivity attaches a click listener, rejects blank input, displays
+            the user's message, and passes the request to contact-management logic.
+            Declaring this button alone does not implement those behaviors.
+        -->
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:minHeight="48dp"
+            android:text="@string/send_request" />
+    </LinearLayout>
+</LinearLayout>
