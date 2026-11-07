@@ -2,6 +2,8 @@ package com.y219.phonebook
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -81,6 +83,21 @@ class MainActivity : AppCompatActivity() {
             // Replace this demonstration reply with contact-management logic.
             // No contacts are read, added, or changed by this example.
             addMessage("Phone Book: Received your request.")
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_exit -> {
+                finishAndRemoveTask()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
