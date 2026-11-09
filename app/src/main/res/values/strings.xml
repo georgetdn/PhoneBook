@@ -3,4 +3,5 @@
     <string name="request_hint">Enter a request</string>
     <string name="send_request">Send</string>
     <string name="exit">Exit</string>
+    <string name="help">Help</string>
 </resources>

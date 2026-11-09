@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+Book/~*
+Book/~8.tmp

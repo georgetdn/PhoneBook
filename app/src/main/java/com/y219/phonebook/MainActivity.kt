@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setTheme(R.style.Theme_PhoneBook)
         // Inflate res/layout/activity_main.xml and make it this activity's screen.
         // Always load the layout before looking up any of its view IDs.
         Log.d("MyTrace", "onCreate")
@@ -86,19 +86,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
+override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.main_menu, menu)
+    Log.d("MyTrace", "Exit item visible: ${menu.findItem(R.id.action_exit)?.isVisible}")
+    return true
+}
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_exit -> {
-                finishAndRemoveTask()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        if (item.itemId == R.id.action_exit) {
+            finish()
+            return true
         }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun addMessage(message: String) {
