@@ -14,4 +14,5 @@
 .cxx
 local.properties
 Book/~*
-Book/~8.tmp
+Book/~*.tmp
+Book/~$velopingAIbook.doc
