@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+val interpretationUrl = providers.gradleProperty("phoneBookInterpretationUrl")
+
+fun quotedBuildConfigValue(value: String): String =
+    "\"${value.replace("\\", "\\\\").replace("\"", "\\\"")}\""
+
 android {
     namespace = "com.y219.phonebook"
     compileSdk {
@@ -20,12 +25,24 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String", "INTERPRETATION_URL",
+                quotedBuildConfigValue(interpretationUrl.getOrElse("http://10.0.2.2:8787/interpret"))
+            )
+        }
         release {
+            buildConfigField(
+                "String", "INTERPRETATION_URL", quotedBuildConfigValue(interpretationUrl.getOrElse(""))
+            )
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
             }
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

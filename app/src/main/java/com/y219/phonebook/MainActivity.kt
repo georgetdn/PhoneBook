@@ -13,6 +13,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 /** Displays the XML screen and handles the user's Send action. */
 class MainActivity : AppCompatActivity() {
@@ -22,9 +25,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var conversationArea: LinearLayout
     private lateinit var conversationScroll: ScrollView
 
-    // Keep the displayed messages so they can survive activity recreation.
-    // This is temporary screen state, not a permanent contact database.
-    private val messages = arrayListOf<String>()
+    private lateinit var conversation: ConversationViewModel
+    private var displayedMessages = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +62,15 @@ class MainActivity : AppCompatActivity() {
         }
         ViewCompat.requestApplyInsets(root)
 
-        // Rebuild the conversation after events such as rotating the phone.
-        // Android restores the EditText's own state because it has a stable ID.
-        savedInstanceState?.getStringArrayList("messages")?.let {
-            messages.addAll(it)
+        conversation = ViewModelProvider(this)[ConversationViewModel::class.java]
+        savedInstanceState?.getStringArrayList("messages")?.let(conversation::restore)
+        lifecycleScope.launch {
+            conversation.state.collect { state ->
+                state.messages.drop(displayedMessages).forEach(::displayMessage)
+                displayedMessages = state.messages.size
+                sendButton.isEnabled = !state.busy
+            }
         }
-        messages.forEach { displayMessage(it) }
 
         // A listener runs whenever the user taps Send.
         sendButton.setOnClickListener {
@@ -77,12 +82,9 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            addMessage("You: $request")
+            if (conversation.state.value.busy) return@setOnClickListener
+            conversation.submit(request)
             requestInput.text.clear()
-
-            // Replace this demonstration reply with contact-management logic.
-            // No contacts are read, added, or changed by this example.
-            addMessage("Phone Book: Received your request.")
         }
     }
 
@@ -98,13 +100,6 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun addMessage(message: String) {
-        // Store the message separately from the view that displays it.
-        Log.d("MyTrace", "addMessage")
-        messages.add(message)
-        displayMessage(message)
     }
 
     private fun displayMessage(message: String) {
@@ -127,10 +122,7 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        // Save this small demonstration conversation across activity recreation.
-        // A production app should store a growing history in persistent storage.
-        Log.d("MyTrace", "onSaveInstanceState")
-        outState.putStringArrayList("messages", ArrayList(messages))
+        outState.putStringArrayList("messages", ArrayList(conversation.state.value.messages))
         super.onSaveInstanceState(outState)
     }
     override fun onStart() {
