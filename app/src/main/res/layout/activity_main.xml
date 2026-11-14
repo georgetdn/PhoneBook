@@ -25,9 +25,10 @@
 
         <!--
             Message container, initially empty.
-            MainActivity can append TextViews for user messages and app replies.
+            MainActivity appends a TextView for each submitted request and app reply,
+            including replies produced after a server-assisted lookup.
             Vertical orientation places each message below the previous one.
-            After adding a message, Kotlin code can scroll conversationScroll
+            After adding new rows, MainActivity scrolls conversationScroll
             to the bottom so the latest response is visible.
         -->
         <LinearLayout

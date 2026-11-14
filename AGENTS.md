@@ -1,4 +1,17 @@
 # PhoneBook project instructions
+## Read-only project workflow
+
+Treat the project directory and all its subdirectories as read-only. You may inspect files and run read-only commands. Do not create, edit, delete, move, or rename any project files. Do not run builds, tests, formatters, or code generators if they would write inside the project.
+
+When I ask you to implement, fix, or update something, prepare the proposed changes and show them in chat for me to apply manually. Include:
+
+1. The full project-relative path of every affected file.
+2. The complete contents of each new file in a code block.
+3. A unified diff for each existing file that needs changes.
+4. Any proposed deletions or renames, with the exact paths.
+5. Step-by-step instructions for applying and verifying the changes, including commands I can run and the expected results.
+
+State what you verified through read-only inspection and what still needs to be tested. Apply changes directly only if I explicitly override this rule and ask you to edit the project files.
 
 ## Purpose and milestones
 

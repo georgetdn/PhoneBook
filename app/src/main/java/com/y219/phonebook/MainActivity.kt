@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var conversationScroll: ScrollView
 
     private lateinit var conversation: ConversationViewModel
+    // Counts rows in this activity instance. A recreated screen starts with no rows
+    // and renders the retained history without submitting those requests again.
     private var displayedMessages = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,11 +66,22 @@ class MainActivity : AppCompatActivity() {
 
         conversation = ViewModelProvider(this)[ConversationViewModel::class.java]
         savedInstanceState?.getStringArrayList("messages")?.let(conversation::restore)
+        // Local command replies and replies produced after server-assisted lookups
+        // arrive through the same state. Only append rows that are new to this screen.
         lifecycleScope.launch {
             conversation.state.collect { state ->
-                state.messages.drop(displayedMessages).forEach(::displayMessage)
+                val newMessages = state.messages.drop(displayedMessages)
+                newMessages.forEach(::displayMessage)
                 displayedMessages = state.messages.size
                 sendButton.isEnabled = !state.busy
+
+                // Wait for the new rows to be measured, then scroll once for the batch.
+                // Scrolling directly leaves keyboard and accessibility focus in place.
+                if (newMessages.isNotEmpty()) {
+                    conversationScroll.post {
+                        conversationScroll.scrollTo(0, conversationArea.bottom)
+                    }
+                }
             }
         }
 
@@ -82,6 +95,8 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Check the current state in case another tap arrives before the button
+            // reflects the busy state. Keep the draft when no request is accepted.
             if (conversation.state.value.busy) return@setOnClickListener
             conversation.submit(request)
             requestInput.text.clear()
@@ -103,8 +118,7 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
     }
 
     private fun displayMessage(message: String) {
-        //
-        Log.d("MyTrace", "displayMessage")
+        // Requests and replies use the same row. The message text includes its sender.
         val messageView = TextView(this).apply {
             text = message
             textSize = 16f // TextView interprets this value in scalable pixels (sp).
@@ -114,14 +128,10 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
             setPadding(0, spacing, 0, spacing)
         }
         conversationArea.addView(messageView)
-
-        // Postpone scrolling until Android has laid out the newly added view.
-        conversationScroll.post {
-            conversationScroll.fullScroll(View.FOCUS_DOWN)
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        // Save display text for Android to restore if the process is recreated.
         outState.putStringArrayList("messages", ArrayList(conversation.state.value.messages))
         super.onSaveInstanceState(outState)
     }
