@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -31,6 +32,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
+ksp {
+    arg("room.schemaLocation", layout.projectDirectory.dir("schemas").asFile.absolutePath)
+}
 
 dependencies {
     implementation(libs.androidx.appcompat)
@@ -40,4 +44,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation("androidx.lifecycle:lifecycle-runtime:2.10.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.10.0")
+
 }

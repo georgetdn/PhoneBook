@@ -15,6 +15,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import android.content.Intent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /** Displays the XML screen and handles the user's Send action. */
 class MainActivity : AppCompatActivity() {
@@ -64,6 +70,15 @@ class MainActivity : AppCompatActivity() {
         }
         messages.forEach { displayMessage(it) }
         // Run this listener whenever the user taps Send.
+        val phoneBookViewModel = ViewModelProvider(this)[PhoneBookViewModel::class.java]
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                phoneBookViewModel.replies.collect { reply ->
+                    addMessage("Phone Book: $reply")
+                }
+            }
+        }
+
         sendButton.setOnClickListener {
             val request = requestInput.text.toString().trim()
             // Ignore empty requests and show an error beside the input field.
@@ -75,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             requestInput.text.clear()
             // Temporary reply: replace this with contact-management logic.
             // This example does not read, add, or change contacts.
-            addMessage("Phone Book: Received your request.")
+            phoneBookViewModel.submit(request)
         }
     }
 
