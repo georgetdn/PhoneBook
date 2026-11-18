@@ -1,0 +1,8 @@
+<resources>
+        <string name="app_name">Phone Book</string>
+        <string name="request_hint">Enter a request</string>
+        <string name="send_request">Send</string>
+        <string name="exit">Exit</string>
+        <string name="help_menu">Help</string>
+        <string name="help_title">Phone Book Help</string>
+</resources>
