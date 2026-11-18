@@ -13,10 +13,16 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+<<<<<<< HEAD
     <style name="Theme.PhoneBook.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.PhoneBook</item>
     </style>
 
+=======
+    <style name="Theme.PhoneBook.Starting" parent="Theme.PhoneBook">
+        <item name="android:windowBackground">@drawable/phone_book_launch_background</item>
+    </style>
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9
 </resources>

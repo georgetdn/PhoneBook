@@ -1,7 +1,10 @@
 package com.y219.phonebook
 
+<<<<<<< HEAD
 import com.y219.phonebook.Data.PhoneBookDatabase
 import com.y219.phonebook.Data.PhoneBookEntry
+=======
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -45,4 +48,8 @@ class PhoneBookDatabaseTest {
             database.close()
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9

@@ -1,4 +1,5 @@
 <resources>
+<<<<<<< HEAD
         <string name="app_name">Phone Book</string>
         <string name="request_hint">Enter a request</string>
         <string name="send_request">Send</string>
@@ -6,3 +7,11 @@
         <string name="help_menu">Help</string>
         <string name="help_title">Phone Book Help</string>
 </resources>
+=======
+    <string name="app_name">Phone Book</string>
+    <string name="request_hint">Enter a request</string>
+    <string name="send_request">Send</string>
+    <string name="exit">Exit</string>
+    <string name="help">Help</string>
+</resources>
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9

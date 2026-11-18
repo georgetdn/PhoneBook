@@ -13,12 +13,15 @@ When I ask you to implement, fix, or update something, prepare the proposed chan
 
 State what you verified through read-only inspection and what still needs to be tested. Apply changes directly only if I explicitly override this rule and ask you to edit the project files.
 
+<<<<<<< HEAD
 ## Original writing and code
 
 Write new prose, examples, and code specifically for PhoneBook. Do not intentionally reproduce or closely paraphrase third-party prose or distinctive code, including material recalled from training. Use outside sources to verify facts and API behavior, and cite any sources you rely on.
 
 Reuse existing PhoneBook code where appropriate. Preserve existing wording when I ask for a targeted edit. Standard API names, required syntax, and common programming idioms are allowed.
 
+=======
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9
 ## Purpose and milestones
 
 PhoneBook is an Android app for storing and retrieving phone book entries. Users submit requests and see replies in a conversation screen. Entries are stored on the device in a SQLite database using Room.

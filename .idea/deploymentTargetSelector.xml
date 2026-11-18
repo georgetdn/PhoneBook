@@ -6,10 +6,13 @@
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
+<<<<<<< HEAD
       <SelectionState runConfigName="insertEntryAndFindItByName()">
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
+=======
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9
     </selectionStates>
   </component>
 </project>

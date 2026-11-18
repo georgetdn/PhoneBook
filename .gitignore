@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+<<<<<<< HEAD
+=======
+Book/~*
+Book/~*.tmp
+Book/~$velopingAIbook.doc
+Book/DevelopingAIbook - Captain\342\200\231s Log.pdf
+>>>>>>> 568a8069af337ae66c759e6f78eeaa2da2c870b9

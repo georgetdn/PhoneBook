@@ -1,0 +1,33 @@
+Create a trip record
+
+Set Name to QA Harbor Run; Departure Date to 2025-05-13; Departure Time Zone ID to America/New_York; Departure Time to 12:30 PM; Arrival Date to 2025-05-13; Arrival Time Zone ID to America/New_York; Arrival Time to 4:00 PM
+
+
+Set start engine hours to 120
+
+
+Set end engine hours to 123.5
+
+Create a waypoint record
+
+Set Name to QA Harbor Out; Trip to QA Harbor Run; Recorded Date to 2025-05-13; Recorded Time Zone ID to America/New_York; Recorded Time to 1:00 PM; Latitude to 32.7790; Longitude to -79.9240; Engine On to Yes
+
+Create a waypoint record
+
+Set Name to QA Harbor In; Trip to QA Harbor Run; Recorded Date to 2025-05-13; Recorded Time Zone ID to America/New_York; Recorded Time to 3:30 PM; Latitude to 32.7710; Longitude to -79.9030; Engine On to Yes
+
+Create a maintenance record
+
+Set Name to QA Oil Change; Trip to QA Harbor Run; Equipment to QA Main Engine; Service Provider to Mike; Scheduled Date to 2025-05-13; Description to Replace oil and filter
+
+Create an event record
+
+Set Name to QA Harbor Check; Trip to QA Harbor Run; Description to Checked bilge pump before docking; Start Date to 2025-05-13
+
+Create an appointment record
+
+Set Name to QA Dock Visit; Service Provider to Lena; Start Date to 2030-05-13; Start Time Zone ID to America/New_York; Start Time to 1:00 PM; Description to Review the slip assignment
+
+Create an expense record
+
+Set Name to QA Harbor Invoice; Category to QA Repairs; Service Provider to Mike; Trip to QA Harbor Run; Maintenance to QA Oil Change; Date to 2025-05-13; Description to Oil change parts and labor
